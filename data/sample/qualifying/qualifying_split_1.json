@@ -1,0 +1,35 @@
+[
+  {
+    "qualifyId": 8501,
+    "raceId": 1052,
+    "driverId": 830,
+    "constructorId": 9,
+    "number": 33,
+    "position": 1,
+    "q1": "1:30.499",
+    "q2": "1:30.318",
+    "q3": "1:28.997"
+  },
+  {
+    "qualifyId": 8502,
+    "raceId": 1052,
+    "driverId": 1,
+    "constructorId": 131,
+    "number": 44,
+    "position": 2,
+    "q1": "1:30.617",
+    "q2": "1:30.085",
+    "q3": "1:29.385"
+  },
+  {
+    "qualifyId": 8503,
+    "raceId": 1052,
+    "driverId": 844,
+    "constructorId": 6,
+    "number": 16,
+    "position": 4,
+    "q1": "1:30.691",
+    "q2": "1:30.010",
+    "q3": "1:29.549"
+  }
+]

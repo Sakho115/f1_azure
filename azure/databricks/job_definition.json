@@ -1,0 +1,36 @@
+{
+  "name": "f1-lakehouse-weekly-job",
+  "schedule": {
+    "quartz_cron_expression": "0 0 22 ? * SUN",
+    "timezone_id": "UTC"
+  },
+  "tasks": [
+    {
+      "task_key": "bronze_ingestion",
+      "notebook_task": {
+        "notebook_path": "/formula1-lakehouse/notebooks/01_bronze_ingestion"
+      }
+    },
+    {
+      "task_key": "silver_transformations",
+      "depends_on": [{ "task_key": "bronze_ingestion" }],
+      "notebook_task": {
+        "notebook_path": "/formula1-lakehouse/notebooks/02_silver_transformations"
+      }
+    },
+    {
+      "task_key": "gold_marts",
+      "depends_on": [{ "task_key": "silver_transformations" }],
+      "notebook_task": {
+        "notebook_path": "/formula1-lakehouse/notebooks/04_gold_tables"
+      }
+    },
+    {
+      "task_key": "data_quality",
+      "depends_on": [{ "task_key": "gold_marts" }],
+      "notebook_task": {
+        "notebook_path": "/formula1-lakehouse/notebooks/05_data_quality"
+      }
+    }
+  ]
+}

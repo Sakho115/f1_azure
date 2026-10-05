@@ -1,0 +1,59 @@
+# Formula 1 Lakehouse Pipeline Configuration
+
+pipeline:
+  name: "formula1-lakehouse"
+  version: "1.0.0"
+  env: "local"  # 'local' or 'azure'
+
+storage:
+  root: "./data"
+  raw: "./data/raw"
+  sample: "./data/sample"
+  bronze: "./data/bronze"
+  silver: "./data/silver"
+  gold: "./data/gold"
+
+datasets:
+  dimensions:
+    - name: "circuits"
+      format: "csv"
+      primary_key: ["circuit_id"]
+    - name: "races"
+      format: "csv"
+      primary_key: ["race_id"]
+    - name: "constructors"
+      format: "single-line-json"
+      primary_key: ["constructor_id"]
+    - name: "drivers"
+      format: "nested-json"
+      primary_key: ["driver_id"]
+
+  facts:
+    - name: "results"
+      format: "single-line-json"
+      primary_key: ["result_id"]
+      partition_by: "race_id"
+    - name: "pitstops"
+      format: "multiline-json"
+      primary_key: ["race_id", "driver_id", "stop"]
+      partition_by: "race_id"
+    - name: "laptimes"
+      format: "split-csv"
+      primary_key: ["race_id", "driver_id", "lap"]
+      partition_by: "race_id"
+    - name: "qualifying"
+      format: "split-multiline-json"
+      primary_key: ["qualify_id"]
+      partition_by: "race_id"
+
+gold_marts:
+  - "driver_standings"
+  - "constructor_standings"
+  - "race_results_gold"
+  - "pit_stop_analysis"
+  - "qualifying_analysis"
+
+execution:
+  conditional_skip_unchanged: true
+  default_shuffle_partitions: 4
+  log_level: "INFO"

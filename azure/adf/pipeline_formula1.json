@@ -1,0 +1,74 @@
+{
+  "name": "pipeline_formula1_lakehouse",
+  "properties": {
+    "activities": [
+      {
+        "name": "Bronze_Ingestion",
+        "type": "DatabricksNotebook",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 2
+        },
+        "typeProperties": {
+          "notebookPath": "/Notebooks/01_bronze_ingestion"
+        },
+        "linkedServiceName": {
+          "referenceName": "AzureDatabricks_LinkedService",
+          "type": "LinkedServiceReference"
+        }
+      },
+      {
+        "name": "Silver_Transformations",
+        "type": "DatabricksNotebook",
+        "dependsOn": [
+          {
+            "activity": "Bronze_Ingestion",
+            "dependencyConditions": ["Succeeded"]
+          }
+        ],
+        "typeProperties": {
+          "notebookPath": "/Notebooks/02_silver_transformations"
+        },
+        "linkedServiceName": {
+          "referenceName": "AzureDatabricks_LinkedService",
+          "type": "LinkedServiceReference"
+        }
+      },
+      {
+        "name": "Gold_Analytical_Marts",
+        "type": "DatabricksNotebook",
+        "dependsOn": [
+          {
+            "activity": "Silver_Transformations",
+            "dependencyConditions": ["Succeeded"]
+          }
+        ],
+        "typeProperties": {
+          "notebookPath": "/Notebooks/04_gold_tables"
+        },
+        "linkedServiceName": {
+          "referenceName": "AzureDatabricks_LinkedService",
+          "type": "LinkedServiceReference"
+        }
+      },
+      {
+        "name": "Data_Quality_Assertions",
+        "type": "DatabricksNotebook",
+        "dependsOn": [
+          {
+            "activity": "Gold_Analytical_Marts",
+            "dependencyConditions": ["Succeeded"]
+          }
+        ],
+        "typeProperties": {
+          "notebookPath": "/Notebooks/05_data_quality"
+        },
+        "linkedServiceName": {
+          "referenceName": "AzureDatabricks_LinkedService",
+          "type": "LinkedServiceReference"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "adls_gen2": {
+    "name": "LS_ADLS_Gen2_F1",
+    "properties": {
+      "type": "AzureBlobFS",
+      "typeProperties": {
+        "url": "https://f1lakehousestorage.dfs.core.windows.net",
+        "servicePrincipalId": "@pipeline().globalParameters.AZURE_CLIENT_ID",
+        "servicePrincipalKey": {
+          "type": "AzureKeyVaultSecret",
+          "store": { "referenceName": "LS_KeyVault" },
+          "secretName": "sp-client-secret"
+        },
+        "tenant": "@pipeline().globalParameters.AZURE_TENANT_ID"
+      }
+    }
+  },
+  "databricks": {
+    "name": "LS_AzureDatabricks_F1",
+    "properties": {
+      "type": "AzureDatabricks",
+      "typeProperties": {
+        "domain": "https://adb-1234567890123456.7.azuredatabricks.net",
+        "accessToken": {
+          "type": "AzureKeyVaultSecret",
+          "store": { "referenceName": "LS_KeyVault" },
+          "secretName": "databricks-pat-token"
+        },
+        "existingClusterId": "0101-123456-mockcluster"
+      }
+    }
+  }
+}

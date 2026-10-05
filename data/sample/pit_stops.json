@@ -1,0 +1,92 @@
+[
+  {
+    "raceId": 1052,
+    "driverId": 1,
+    "stop": 1,
+    "lap": 13,
+    "time": "15:24:12",
+    "duration": "24.120",
+    "milliseconds": 24120
+  },
+  {
+    "raceId": 1052,
+    "driverId": 1,
+    "stop": 2,
+    "lap": 28,
+    "time": "15:47:33",
+    "duration": "24.580",
+    "milliseconds": 24580
+  },
+  {
+    "raceId": 1052,
+    "driverId": 830,
+    "stop": 1,
+    "lap": 17,
+    "time": "15:29:45",
+    "duration": "23.950",
+    "milliseconds": 23950
+  },
+  {
+    "raceId": 1052,
+    "driverId": 830,
+    "stop": 2,
+    "lap": 39,
+    "time": "16:03:10",
+    "duration": "23.810",
+    "milliseconds": 23810
+  },
+  {
+    "raceId": 1061,
+    "driverId": 1,
+    "stop": 1,
+    "lap": 27,
+    "time": "14:45:00",
+    "duration": "34.200",
+    "milliseconds": 34200
+  },
+  {
+    "raceId": 1061,
+    "driverId": 844,
+    "stop": 1,
+    "lap": 29,
+    "time": "14:48:15",
+    "duration": "24.350",
+    "milliseconds": 24350
+  },
+  {
+    "raceId": 1073,
+    "driverId": 830,
+    "stop": 1,
+    "lap": 13,
+    "time": "13:21:40",
+    "duration": "23.700",
+    "milliseconds": 23700
+  },
+  {
+    "raceId": 1073,
+    "driverId": 830,
+    "stop": 2,
+    "lap": 36,
+    "time": "13:56:15",
+    "duration": "23.650",
+    "milliseconds": 23650
+  },
+  {
+    "raceId": 1073,
+    "driverId": 830,
+    "stop": 3,
+    "lap": 53,
+    "time": "14:21:05",
+    "duration": "23.200",
+    "milliseconds": 23200
+  },
+  {
+    "raceId": 1073,
+    "driverId": 1,
+    "stop": 1,
+    "lap": 14,
+    "time": "13:23:05",
+    "duration": "23.900",
+    "milliseconds": 23900
+  }
+]

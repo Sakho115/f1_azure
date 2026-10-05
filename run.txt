@@ -1,0 +1,128 @@
+==============================================================================
+FORMULA 1 LAKEHOUSE PIPELINE - EXECUTION GUIDE (LINUX & WINDOWS)
+==============================================================================
+
+PROJECT VERIFICATION STATUS:
+[✓] Bronze Ingestion (8/8 datasets: CSV, Single-line JSON, Nested JSON, Multi-line JSON, Split CSVs, Split JSONs)
+[✓] Silver Transformations & Delta MERGE Upserts with Audit Columns (create_date / update_date)
+[✓] Gold Championship Standings & Race Telemetry Marts
+[✓] Great Expectations Data Quality Suite (31 Passed, 0 Failed)
+[✓] Pytest Suite Execution (8 Passed, 0 Failed)
+[✓] Streamlit Interactive Dashboard & DuckDB Analytics Engine
+
+==============================================================================
+PREREQUISITES
+==============================================================================
+
+1. Python 3.11+
+2. Java OpenJDK 17 (Required by Apache Spark 3.5.1 and Delta Lake 3.2.0)
+   - Verify Java version: java -version
+
+==============================================================================
+LINUX (BASH / ZSH) SETUP & EXECUTION STEPS
+==============================================================================
+
+Step 1: Clone or Navigate to the Repository
+--------------------------------------------
+cd formula1-lakehouse
+
+Step 2: Create and Activate Virtual Environment
+------------------------------------------------
+python3.11 -m venv .venv
+source .venv/bin/activate
+
+Step 3: Install Required Dependencies
+-------------------------------------
+pip install --upgrade pip
+pip install -r requirements.txt
+
+Step 4: Configure Environment Variables
+---------------------------------------
+cp .env.example .env
+
+Step 5: Generate Historical Sample Datasets (8 Formats)
+-------------------------------------------------------
+python generate_sample_data.py
+
+Step 6: Run End-to-End Pipeline Execution
+-----------------------------------------
+python orchestration/pipeline.py --stage all
+
+Step 7: Run Incremental Backfill Engine
+---------------------------------------
+python orchestration/backfill.py --start-year 2021 --end-year 2022
+
+Step 8: Execute Automated Pytest Test Suite
+-------------------------------------------
+pytest tests/ -v
+
+Step 9: Launch Interactive Analytics Dashboard (Streamlit)
+----------------------------------------------------------
+streamlit run dashboard/app.py
+
+
+==============================================================================
+WINDOWS (POWERSHELL / CMD) SETUP & EXECUTION STEPS
+==============================================================================
+
+Step 1: Open PowerShell or Command Prompt in Project Root
+---------------------------------------------------------
+cd formula1-lakehouse
+
+Step 2: Create and Activate Virtual Environment
+------------------------------------------------
+# In PowerShell:
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+# In Command Prompt (CMD):
+python -m venv .venv
+.\.venv\Scripts\activate.bat
+
+Step 3: Install Required Dependencies
+-------------------------------------
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+
+Step 4: Configure Environment Variables
+---------------------------------------
+# In PowerShell:
+Copy-Item .env.example .env
+
+# In CMD:
+copy .env.example .env
+
+Step 5: Generate Historical Sample Datasets
+-------------------------------------------
+python generate_sample_data.py
+
+Step 6: Run End-to-End Pipeline Execution
+-----------------------------------------
+python orchestration/pipeline.py --stage all
+
+Step 7: Run Incremental Backfill Engine
+---------------------------------------
+python orchestration/backfill.py --start-year 2021 --end-year 2022
+
+Step 8: Execute Automated Pytest Test Suite
+-------------------------------------------
+pytest tests/ -v
+
+Step 9: Launch Interactive Analytics Dashboard
+----------------------------------------------
+streamlit run dashboard/app.py
+
+
+==============================================================================
+DOCKER CONTAINERIZED EXECUTION (OPTIONAL)
+==============================================================================
+
+1. Build and Launch Containers (Pipeline + Dashboard + MinIO Storage):
+   docker-compose up --build
+
+2. Access Streamlit Dashboard:
+   http://localhost:8501
+
+3. Access MinIO Console:
+   http://localhost:9001 (User: minioadmin / Pass: minioadminpassword)
+==============================================================================

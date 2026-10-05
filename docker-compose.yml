@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------------------------------------------
+  # Formula 1 Pipeline Runner (PySpark + Delta Lake Execution)
+  # ----------------------------------------------------------------------------
+  pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: f1_lakehouse_pipeline
+    environment:
+      - PIPELINE_ENV=local
+      - LAKEHOUSE_STORAGE_ROOT=/app/data
+      - SPARK_MASTER=local[*]
+    volumes:
+      - ./data:/app/data
+      - ./orchestration:/app/orchestration
+      - ./src:/app/src
+    command: ["python", "orchestration/pipeline.py", "--stage", "all"]
+
+  # ----------------------------------------------------------------------------
+  # Streamlit Analytics Dashboard (Power BI / Databricks SQL Local Equivalent)
+  # ----------------------------------------------------------------------------
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: f1_lakehouse_dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      - PIPELINE_ENV=local
+      - LAKEHOUSE_STORAGE_ROOT=/app/data
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+    volumes:
+      - ./data:/app/data
+      - ./dashboard:/app/dashboard
+      - ./src:/app/src
+    command: ["streamlit", "run", "dashboard/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    depends_on:
+      - pipeline
+
+  # ----------------------------------------------------------------------------
+  # MinIO Object Storage (Optional S3/ADLS Gen2 API compatible container)
+  # ----------------------------------------------------------------------------
+  minio:
+    image: minio/minio:RELEASE.2024-05-10T01-41-38Z
+    container_name: f1_lakehouse_minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadminpassword
+    command: server /data --console-address ":9001"
+    volumes:
+      - ./data/minio:/data

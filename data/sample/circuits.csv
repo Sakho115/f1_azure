@@ -1,0 +1,6 @@
+circuitId,circuitRef,name,location,country,lat,lng,alt,url
+1,silverstone,Silverstone Circuit,Silverstone,UK,52.0786,-1.01694,153,https://en.wikipedia.org/wiki/Silverstone_Circuit
+2,monza,Autodromo Nazionale di Monza,Monza,Italy,45.6156,9.28111,162,https://en.wikipedia.org/wiki/Autodromo_Nazionale_di_Monza
+3,bahrain,Bahrain International Circuit,Sakhir,Bahrain,26.0325,50.5106,7,https://en.wikipedia.org/wiki/Bahrain_International_Circuit
+4,yas_marina,Yas Marina Circuit,Abu Dhabi,UAE,24.4672,54.6031,3,https://en.wikipedia.org/wiki/Yas_Marina_Circuit
+5,spa,Circuit de Spa-Francorchamps,Spa,Belgium,50.4372,5.97139,401,https://en.wikipedia.org/wiki/Circuit_de_Spa-Francorchamps
